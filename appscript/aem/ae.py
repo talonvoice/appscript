@@ -58,7 +58,8 @@ class AEDesc:
         self.handle = ffi.new('AEDesc *')
 
     def __del__(self):
-        lib.AEDisposeDesc(self.handle)
+        if lib: # work around error in python2 on exit
+            lib.AEDisposeDesc(self.handle)
 
     @property
     def type(self): return unpack_ostype(self.handle.descriptorType)
