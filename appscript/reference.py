@@ -393,9 +393,14 @@ class Command(_Base):
 		return '{!r}.{}'.format(self._parentref, self.AS_name)
 	
 	def __call__(self, *args, **kargs):
-		keywordargs = kargs.copy()
+		fpath = kargs.pop('File')
+		if fpath and args:
+			raise TypeError("File= used with non-keyword args, File= should be the first argument")
+		else:
+			args = [mactypes.File(fpath)]
 		if len(args) > 1:
 			raise TypeError("Command received more than one direct parameter {!r}.".format(args))
+		keywordargs = kargs.copy()
 		# get user-specified timeout, if any
 		timeout = int(keywordargs.pop('timeout', 60)) # appscript's default is 60 sec
 		if timeout <= 0:
