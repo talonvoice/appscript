@@ -59,7 +59,7 @@ class Alias(_Base):
 			try:
 				self._desc = urldesc.coerce(kae.typeAlias)
 			except MacOSError as err:
-				if err.args[0] == -1700:
+				if err.code == -1700:
 					raise ValueError("Can't make mactypes.Alias as file doesn't exist: {!r}".format(path))
 				else:
 					raise

@@ -52,7 +52,7 @@ def _launchapplication(path, event, newinstance=False, hide=False):
 	try:
 		return ae.launchapplication(path, event, flags)
 	except ae.MacOSError as err:
-		raise CantLaunchApplicationError(err.args[0], path)
+		raise CantLaunchApplicationError(err.code, path)
 
 
 ######################################################################
@@ -110,7 +110,7 @@ def launchapp(path, newinstance=False, hide=False):
 			# If app is already running, calling ae.launchapplication will send a 'reopen' event, so need to check for this first:
 			desc = ae.psnforapplicationpath(path)
 		except ae.MacOSError as err:
-			if err.args[0] == -600: # Application isn't running, so launch it and send it a 'launch' event:
+			if err.code == -600: # Application isn't running, so launch it and send it a 'launch' event:
 				sleep(1)
 				desc = _launchapplication(path, _launchevent, newinstance, hide)
 			else:
@@ -130,7 +130,7 @@ def processexistsforpath(path):
 		ae.psnforapplicationpath(path)
 		return True
 	except ae.MacOSError as err:
-		if err.args[0] == -600: 
+		if err.code == -600:
 			return False
 		else:
 			raise
@@ -159,7 +159,7 @@ def processexistsfordesc(desc):
 		# -609 is often returned instead for some reason).
 		Event(desc, b'ascrnoop').send()
 	except ae.MacOSError as err:
-		return err.args[0] not in [-600, -905] # -600 = no process; -905 = no network access
+		return err.code not in [-600, -905] # -600 = no process; -905 = no network access
 	return True
 
 
@@ -182,7 +182,7 @@ def localapp(path, newinstance=False, hide=False):
 		try:
 			desc = ae.psnforapplicationpath(path)
 		except ae.MacOSError as err:
-			if err.args[0] == -600: # Application isn't running, so launch it in background and send it a standard 'run' event.
+			if err.code == -600: # Application isn't running, so launch it in background and send it a standard 'run' event.
 				sleep(1)
 				desc = _launchapplication(path, _runevent, newinstance, hide)
 			else:

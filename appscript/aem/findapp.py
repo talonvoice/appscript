@@ -14,7 +14,7 @@ def _findapp(name=None, id=None, creator=b'????'):
 	try:
 		return findapplicationforinfo(creator, id, name)
 	except MacOSError as err:
-		if err.args[0] == -10814:
+		if err.code == -10814:
 			raise ApplicationNotFoundError(name or id or creator)
 		else:
 			raise

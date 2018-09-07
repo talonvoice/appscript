@@ -11,6 +11,7 @@ from .reference import app, CommandError
 from .genericreference import con, its
 from .keywordwrapper import k
 from .aem import mactypes
+from .aem.mactypes import Alias, File, Units
 
 # The following classes are exposed for occasional typechecking purposes. To avoid excess 
 # namespace pollution they aren't added to the parent namespace when 'from appscript import *'
