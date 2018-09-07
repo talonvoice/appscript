@@ -393,10 +393,10 @@ class Command(_Base):
 		return '{!r}.{}'.format(self._parentref, self.AS_name)
 	
 	def __call__(self, *args, **kargs):
-		fpath = kargs.pop('File')
+		fpath = kargs.pop('File', None)
 		if fpath and args:
 			raise TypeError("File= used with non-keyword args, File= should be the first argument")
-		else:
+		elif fpath:
 			args = [mactypes.File(fpath)]
 		if len(args) > 1:
 			raise TypeError("Command received more than one direct parameter {!r}.".format(args))
