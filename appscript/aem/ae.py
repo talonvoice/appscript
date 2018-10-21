@@ -188,12 +188,16 @@ def psnforapplicationpath(path):
             break
     return newdesc(typeProcessSerialNumber, ffi.buffer(psn, ffi.sizeof(psn))[:])
 
-_nulldesc = newdesc(typeProcessSerialNumber, struct.pack('II', 0, kNoProcess))
-_noopevent = newappleevent(b'ascr', b'noop', _nulldesc)
+def create_noopevent():
+    nulldesc = newdesc(typeProcessSerialNumber, struct.pack('II', 0, kNoProcess))
+    return newappleevent(b'ascr', b'noop', _nulldesc)
+
 # TODO: LSOpenApplication is deprecated, FSRef is deprecated
-def launchapplication(path, first_event=_noopevent, flags=0):
+def launchapplication(path, first_event=None, flags=0):
     if not isinstance(first_event, AEDesc):
         raise TypeError('first_event must be an AEDesc')
+    if first_event is None:
+        first_event = create_noopevent()
     app_ref = FSRef(path)
     params = ffi.new('LSApplicationParameters *')
     params[0] = (0, flags, app_ref, ffi.NULL, ffi.NULL, ffi.NULL, first_event.handle)
