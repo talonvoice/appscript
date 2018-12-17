@@ -23,3 +23,6 @@ from .aem.mactypes import Alias, File, Units
 from .reference import Command, Reference, Application, GenericApp
 from .genericreference import GenericReference
 from .keywordwrapper import Keyword
+
+from .osax import OSAX
+std = OSAX()
