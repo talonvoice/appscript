@@ -5,6 +5,7 @@ import io, string
 import os
 
 from . import aem, reference, terminology
+from .reference import CommandError
 from .reservedkeywords import kReservedKeywords
 
 
