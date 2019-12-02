@@ -14,9 +14,11 @@ class Keyword:
         return 'k.{}'.format(self.AS_name)
 
     def __hash__(self):
-        return hash(self.AS_name)
+        return hash(repr(self))
 
     def __eq__(self, val):
+        if isinstance(val, str):
+            return val == repr(self)
         return val.__class__ == self.__class__ and val.AS_name == self.AS_name
 
     def __ne__(self, val):
