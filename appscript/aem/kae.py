@@ -174,6 +174,7 @@ kAECanSwitchLayer = 0x00000040
 kAEDontRecord = 0x00001000
 kAEDontExecute = 0x00002000
 kAEProcessNonReplyEvents = 0x00008000
+kAEDoNotPromptForUserConsent = 0x00020000
 
 kAEDefaultTimeout = -1
 kNoTimeOut = -2

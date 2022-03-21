@@ -179,6 +179,8 @@ class EventError(MacOSError):
 		-1730: "Container specified was an empty list.",
 		-1731: "Unknown object type.",
 		-1739: "Attempting to perform an invalid operation on a null descriptor.",
+		-1743: "Event not permitted.",
+		-1744: "Event would require user authorization.",
 		# Application scripting errors
 		-10000: "Apple event handler failed.",
 		-10001: "Type error.",

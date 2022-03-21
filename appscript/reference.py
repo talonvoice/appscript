@@ -407,8 +407,12 @@ class Command(_Base):
 			timeout = kae.kNoTimeOut
 		else:
 			timeout *= 60 # convert to ticks
+		sendflags = 0
 		# ignore application's reply?
-		sendflags = keywordargs.pop('waitreply', True) and kae.kAEWaitReply or kae.kAENoReply
+		sendflags |= kae.kAEWaitReply if keywordargs.pop('waitreply', True) else kae.kAENoReply
+		# don't prompt for accessibility?
+		sendflags |= kae.kAEDoNotPromptForUserConsent if keywordargs.pop('noprompt', False) else 0
+
 		atts, params = {b'subj':None}, {}
 		# add considering/ignoring attributes (note: most apps currently ignore these)
 		ignoreoptions = keywordargs.pop('ignore', None)
