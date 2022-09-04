@@ -4,7 +4,7 @@ import os
 import struct
 import sys
 
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote
 from urllib.request import pathname2url
 
 from .ae_api import ffi
@@ -154,7 +154,8 @@ def convertpathtourl(path, style):
 def converturltopath(url, style):
     if style != kCFURLPOSIXPathStyle:
         raise ValueError('only kCFURLPOSIXPathStyle is supported')
-    return urlparse(url).path
+    path = urlparse(url).path
+    return unquote(path)
 
 # TODO: LSFindApplicationForInfo is deprecated in favor of LSCopyApplicationURLsForBundleIdentifier
 def findapplicationforinfo(creator, bundle, name):
