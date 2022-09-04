@@ -4,13 +4,8 @@ import os
 import struct
 import sys
 
-py3 = sys.version_info[0] >= 3
-if py3:
-    from urllib.parse import urlparse
-    from urllib.request import pathname2url
-else:
-    from urlparse import urlparse
-    from urllib import pathname2url
+from urllib.parse import urlparse
+from urllib.request import pathname2url
 
 from .ae_api import ffi
 lib = ffi.dlopen('/System/Library/Frameworks/Carbon.framework/Carbon')
